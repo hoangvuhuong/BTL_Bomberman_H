@@ -20,6 +20,8 @@ import uet.oop.bomberman.entities.tile.powerup.Powerup;
 import uet.oop.bomberman.music.Sound;
 public class Bomber extends Character {
 
+    public Sound Die = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\res\\music\\choang.wav");
+
     private List<Bomb> _bombs;
     protected Keyboard _input;
      public static List<Powerup> _powerups = new ArrayList<Powerup>();
@@ -33,6 +35,7 @@ public class Bomber extends Character {
 
     public Bomber(int x, int y, Board board) {
         super(x, y, board);
+        
         _bombs = _board.getBombs();
         _input = _board.getInput();
         _sprite = Sprite.player_right;
@@ -124,9 +127,9 @@ public class Bomber extends Character {
         if (!_alive) {
             return;
         }
-         Sound sound = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\Music\\Bomd.wav");
-         sound.start();
         _alive = false;
+        Sound die = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\res\\music\\DieXX.wav");
+        die.play();
     }
 
     @Override

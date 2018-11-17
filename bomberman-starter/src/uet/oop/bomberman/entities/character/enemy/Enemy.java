@@ -171,8 +171,8 @@ public abstract class Enemy extends Character {
 
 		Message msg = new Message("+" + _points, getXMessage(), getYMessage(), 2, Color.white, 14);
 		_board.addMessage(msg);
-//                Sound s = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\Music\\choang.wav");
-//                s.start();
+                Sound s = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\res\\music\\choang.wav");
+                s.play();
 	}
 	
 	

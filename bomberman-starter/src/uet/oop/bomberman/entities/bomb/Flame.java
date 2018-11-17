@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.music.Sound;
 public class Flame extends Entity {
 
 	protected Board _board;
@@ -30,6 +31,8 @@ public class Flame extends Entity {
 		_radius = radius;
 		_board = board;
 		createFlameSegments();
+                Sound flame = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\res\\music\\Bomd.wav");
+                flame.play();
 	}
 
 	/**
@@ -106,6 +109,7 @@ public class Flame extends Entity {
 		for (int i = 0; i < _flameSegments.length; i++) {
 			_flameSegments[i].render(screen);
 		}
+                
 	}
 
 	@Override
