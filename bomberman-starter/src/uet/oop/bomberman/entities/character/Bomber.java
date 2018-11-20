@@ -15,8 +15,10 @@ import java.util.List;
 import uet.oop.bomberman.entities.Message;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.tile.item.Item;
 import uet.oop.bomberman.level.Coordinates;
-import uet.oop.bomberman.entities.tile.powerup.Powerup;
+
+import uet.oop.bomberman.music.ListSound;
 import uet.oop.bomberman.music.Sound;
 public class Bomber extends Character {
 
@@ -24,7 +26,7 @@ public class Bomber extends Character {
 
     private List<Bomb> _bombs;
     protected Keyboard _input;
-     public static List<Powerup> _powerups = new ArrayList<Powerup>();
+    public static List<Item> _items = new ArrayList<>();
     /**
      * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb
      * tiếp theo, cứ mỗi lần đặt 1 Bomb mới, giá trị này sẽ
@@ -128,8 +130,10 @@ public class Bomber extends Character {
             return;
         }
         _alive = false;
-        Sound die = new Sound("C:\\Users\\Hoang Vu Huong\\Desktop\\Bom\\bomberman-starter\\res\\music\\DieXX.wav");
+        ListSound.music.stop();
+        Sound die = new Sound("res\\music\\die_laugh.wav");
         die.play();
+        
     }
 
     @Override
@@ -225,31 +229,30 @@ public class Bomber extends Character {
 	| Powerups
 	|--------------------------------------------------------------------------
 	 */
-	public void addPowerup(Powerup p) {
-		if(p.isRemoved()) return;
-		
-		_powerups.add(p);
-		
-		p.setValues();
-	}
+//	public void addItem(Item p) {
+//		if(p.isRemoved()) return;
+//		
+//		_powerups.add(p);
+//		
+//		p.setValues();
+//	}
+//	
+//	public void clearUsedPowerups() {
+//		Powerup p;
+//		for (int i = 0; i < _powerups.size(); i++) {
+//			p = _powerups.get(i);
+//			if(p.isActive() == false)
+//				_powerups.remove(i);
+//		}
+//	}
+//	
+//	public void removePowerups() {
+//		for (int i = 0; i < _powerups.size(); i++) {
+//				_powerups.remove(i);
+//		}
+//	}
 	
-	public void clearUsedPowerups() {
-		Powerup p;
-		for (int i = 0; i < _powerups.size(); i++) {
-			p = _powerups.get(i);
-			if(p.isActive() == false)
-				_powerups.remove(i);
-		}
-	}
-	
-	public void removePowerups() {
-		for (int i = 0; i < _powerups.size(); i++) {
-				_powerups.remove(i);
-		}
-	}
-	
-    
-    
+   
     private void chooseSprite() {
         switch(_direction) {
 		case 0:
@@ -276,6 +279,7 @@ public class Bomber extends Character {
 				_sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
 			}
 			break;
+                        
 		default:
 			_sprite = Sprite.player_right;
 			if(_moving) {
@@ -284,4 +288,27 @@ public class Bomber extends Character {
 			break;
 		}
 	}
+     public void addItem(Item aThis) {
+        if (aThis.isRemoved()) {
+            return;
+        }
+        _items.add(aThis);
+        aThis.setValues();
+    }
+    
+     public void clearUsedPowerups() {
+        for (int i = 0; i < _items.size(); i++) {
+            if (!_items.get(i).isActive()) {
+                _items.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void removePowerups() {
+        for (int i = 0; i < _items.size(); i++) {
+            _items.remove(i);
+            i--;
+        }
+    }
 }

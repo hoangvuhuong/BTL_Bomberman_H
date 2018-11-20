@@ -98,7 +98,7 @@ public abstract class Enemy extends Character {
         if (_direction == 1) {
             xa++;
         }
-
+        
         if (canMove(xa, ya)) {
             _steps -= 1 + rest;
             move(xa * _speed, ya * _speed);

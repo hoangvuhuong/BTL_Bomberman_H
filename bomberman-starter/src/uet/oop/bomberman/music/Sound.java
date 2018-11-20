@@ -13,18 +13,27 @@ import java.io.File;
 import javax.sound.sampled.*;
 public class Sound{
    public  File clap;
+   Clip clip;
     public Sound(String name_file){
          clap = new File(name_file);
         
     }
     public void play(){
         try {
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(clap));
             clip.start();
+            
            // Thread.sleep(clip.getMicrosecondLength()/10000);
         } catch (Exception e) {
         }
+    }
+    public void stop(){
+        clip.stop();
+        
+    }
+    public boolean isRun(){
+        return clip.isRunning();
     }
     
 }

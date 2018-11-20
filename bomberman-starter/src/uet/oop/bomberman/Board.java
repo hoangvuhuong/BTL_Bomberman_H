@@ -17,7 +17,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import uet.oop.bomberman.entities.tile.powerup.Powerup;
+import uet.oop.bomberman.entities.tile.item.Item;
+//import uet.oop.bomberman.entities.tile.powerup.Powerup;
+import uet.oop.bomberman.music.ListSound;
+import uet.oop.bomberman.music.Sound;
 
 /**
  * Quản lý thao tác đi�?u khiển, load level, render các màn hình của game
@@ -46,6 +49,7 @@ public class Board implements IRender {
 		_screen = screen;
 		
 		loadLevel(1); //start in level 1
+                
 	}
 	
 	@Override
@@ -105,6 +109,9 @@ public class Board implements IRender {
 //	
 	public void nextLevel() {
 		loadLevel(_levelLoader.getLevel() + 1);
+               
+                ListSound.nextLV.play();
+               
 	}
 	
 //        public void changeLevel(int level) {
@@ -137,8 +144,9 @@ public class Board implements IRender {
 		try {
 			_levelLoader = new FileLevelLoader(this, level);
 			_entities = new Entity[_levelLoader.getHeight() * _levelLoader.getWidth()];
-			
+			ListSound.music.play();
 			_levelLoader.createEntities();
+                       
 		} catch (LoadLevelException e) {
 			endGame();
 		}
@@ -410,5 +418,15 @@ public class Board implements IRender {
 //        public void addLives(int lives) {
 //		this._lives += lives;
 //	}
-	
+	public boolean isItemUsed(int x, int y, int level) {
+        Item p;
+        for (int i = 0; i < Bomber._items.size(); i++) {
+            p = Bomber._items.get(i);
+            if (p.getX() == x && p.getY() == y && level == p.getLevel()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

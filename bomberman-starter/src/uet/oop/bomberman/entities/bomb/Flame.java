@@ -117,6 +117,7 @@ public class Flame extends Entity {
 		// TODO: xử lý va chạm với Bomber, Enemy. Chú ý đối tượng này có vị trí chính là vị trí của Bomb đã nổ
                  if (e instanceof Bomber) {
             ((Bomber) e).kill();
+            
             return false;
         }
         
